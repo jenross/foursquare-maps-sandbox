@@ -25,7 +25,7 @@ $("#run-search").on("click", function(event) {
         let title;
         for (let i = 0; i < events; i++) {
           var tr = $('<tr>');
-            title = $(`<td class='event-data'><a href='#'>${response.events[i].title}</a></td>`);
+            title = $(`<td class='event-data title' id_zip='${response.events[i].venue.postal_code}' id_location='${response.events[i].venue.display_location}'><a href='#'>${response.events[i].title}</a></td>`);
             let initialDate = response.events[i].datetime_local;
             let m = moment(initialDate, 'YYYY-MM-DDThh:mm:ss');
             let convertedDate = $(`<td class='event-data'> ${m.format('ll')} </td>`);
@@ -62,3 +62,23 @@ $(document).on('click', '.local', function() {
     console.log(response);
   });
 });
+
+$(document).on('click', '.title', function() {
+    alert('heyyo');
+
+    const clientID = "LMTVE3CNXEET1N3OERSA0SYN0WK0WVXIAWKKB4R4FZ5APF1A";
+    const clientSecret = "1GDFGDPYK3BYDW4OJJIN12UHHHIR3Y4HHHN3GXOG5RREK4LN";
+    let zip = $(this).attr('id_zip');
+    let location = $(this).attr('id_location');
+    let queryURL = `https://api.foursquare.com/v2/venues/explore?client_id=${clientID}&client_secret=${clientSecret}&v=20190701&near=${location}&zip=${zip}&radius=500&cateogryId=4d4b7105d754a06374d81259,4d4b7105d754a06376d81259,4bf58dd8d48988d116941735&limit=25`;
+    
+    console.log(queryURL);
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+     console.log(response);
+   })
+
+});
+

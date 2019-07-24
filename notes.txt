@@ -1,0 +1,2 @@
+1. Got top places linked to zip and name of city, state to pull from foursquare
+2. Now need to get them to show on Google maps or figure out a cool way to display them. 
